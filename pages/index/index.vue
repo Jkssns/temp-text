@@ -52,12 +52,12 @@
 						tempItem.value = {
 							_id: res.result.id
 						}
-					}).catch(() => {
-						handleErr()
+					}).catch((err) => {
+						handleErr(err)
 					})
 				}
 			}).catch((err) => {
-				handleErr()
+				handleErr(err)
 			})
 		} else {
 			uni.showToast({
@@ -68,6 +68,13 @@
 	}
 	
 	const handleConfirm = () => {
+		if (!tempItem?.value?._id) {
+			uni.showToast({
+				title: '请设置密码',
+				icon: 'none',
+			});
+			return;
+		}
 		if (!tempText.value) {
 			uni.showToast({
 				title: '请输入',
@@ -82,8 +89,8 @@
 				title: '添加/更新成功',
 				icon: 'none',
 			});
-		}).catch(() => {
-			handleErr()
+		}).catch((err) => {
+			handleErr(err)
 		})
 	}
 	
@@ -97,13 +104,13 @@
 				title: '删除成功',
 				icon: 'none',
 			});
-		}).catch(() => {
-			handleErr()
+		}).catch((err) => {
+			handleErr(err)
 		})
 	}
 	
-	const handleErr = () => {
-		alert('服务器错误，请联系维护人，微信号：Ted-Mosdy')
+	const handleErr = (err) => {
+		alert('服务器错误，可能资源包已耗尽。请联系维护人，微信号：Ted-Mosdy。')
 	}
 	
 </script>
